@@ -1,0 +1,31 @@
+<header>
+    <div class="content-container" id="header-list">
+
+        <%= link_to root_path do %>
+            <div class="header-button">
+                <i class="fa-solid fa-gauge-high"></i>
+                <p>Dashboard</p>
+            </div>
+        <% end %>
+
+        <%= link_to calendar_path do %>
+            <div class="header-button">
+                <i class="fa-regular fa-calendar"></i>
+                <p>Calendar</p>
+            </div>
+        <% end %>
+
+        <% if user_signed_in? %>
+            <div></div>
+            <div></div>
+
+            <%= link_to "Logout", destroy_user_session_path %>
+        <% else %>
+            <div></div>
+
+            <%= link_to "Login", new_user_session_path %>
+            <%= link_to "Register", new_user_registration_path %>
+        <% end %>
+
+    </div>
+</header>

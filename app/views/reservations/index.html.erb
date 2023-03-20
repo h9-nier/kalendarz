@@ -1,0 +1,81 @@
+
+<% if !current_user_admin? %>
+    <h1>Twoje rezerwacje</h1>
+
+    <% if @reservations.any? %>
+        <div class="reservation-grid">
+            <% @reservations.each do |reservation| %>
+                <div class="confirmed-reservation-card">
+                    
+                    <h3><%= reservation.date.strftime("%d/%m/%Y") %></h3>
+                    <p>
+                        <%= sprintf '%02d',(reservation.start_time/60) %>:<%= sprintf '%02d',(reservation.start_time%60) %> -
+                        <%= sprintf '%02d',(reservation.end_time/60) %>:<%= sprintf '%02d',(reservation.end_time%60) %> 
+                    </p>
+
+                    <% if reservation.confirmed %>
+                        <p>Wizyta potwierdzona przez administratora!</p>
+                    <% else %>
+                        <p>Wizyta oczekuje potwierdzenia...</p>
+                    <% end %>
+                
+
+                </div>
+            <% end %>
+        </div>
+
+    <% else %>
+        <h3>Brak rezerwacji</h3>
+    <% end %>
+<% else %>
+
+    <% if @confirmed_reservations.any? %>
+        <h2>Potwierdzone rezerwacje</h2>
+
+        <div class="reservation-grid">
+            <% @confirmed_reservations.each do |reservation| %>
+                <div class="confirmed-reservation-card">
+                    
+                    <h3><%= reservation.date.strftime("%d/%m/%Y") %></h3>
+                    <p>
+                        <%= sprintf '%02d',(reservation.start_time/60) %>:<%= sprintf '%02d',(reservation.start_time%60) %> -
+                        <%= sprintf '%02d',(reservation.end_time/60) %>:<%= sprintf '%02d',(reservation.end_time%60) %> 
+                    </p>
+                    <p>Email: <%= reservation.email %></p>
+                    <p>Phone: <%= reservation.phone_number %></p>
+                </div>
+            <% end %>
+        </div>
+
+    <% end %>
+
+    <% if @unconfirmed_reservations.any? %>
+        <h2>Niepotwierdzone rezerwacje</h2>
+
+        <div class="reservation-grid">
+            <% @unconfirmed_reservations.each do |reservation| %>
+                <div class="pending-reservation-card">
+                    
+                    <h3><%= reservation.date.strftime("%d/%m/%Y") %></h3>
+                    <p>
+                        <%= sprintf '%02d',(reservation.start_time/60) %>:<%= sprintf '%02d',(reservation.start_time%60) %> -
+                        <%= sprintf '%02d',(reservation.end_time/60) %>:<%= sprintf '%02d',(reservation.end_time%60) %> 
+                    </p>
+                    <p>Email: <%= reservation.email %></p>
+                    <p>Phone: <%= reservation.phone_number %></p>
+
+                    <div style="display: flex; flex-direction: row; padding-top:5px;">
+                        <%= button_to "Confirm", confirm_reservation_path(reservation: reservation), id: "btn-confirm" %>
+                        <%= button_to "Decline", decline_reservation_path(reservation: reservation), id: "btn-decline" %>
+                    </div>
+
+                </div>
+            <% end %>
+        </div>
+
+    <% end %>
+
+    <% if !@unconfirmed_reservations.any? and !@confirmed_reservations.any? %>
+        <h2>Brak rezerwacji</h2>
+    <% end %>
+<% end %>

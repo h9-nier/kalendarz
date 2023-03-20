@@ -1,0 +1,12 @@
+<%= link_to new_reservation_path(date: @date, event_start_time: @event_start_time, step: @step), data: { turbo_frame: "modal"} do %>
+    <div class="green_tile tile">
+        <p>
+        <%= sprintf '%02d',(@event_start_time/60) %>:<%= sprintf '%02d',(@event_start_time%60) %> -
+        <%= sprintf '%02d',((@event_start_time+@step)/60) %>:<%= sprintf '%02d',((@event_start_time+@step)%60) %>
+        </p>
+
+        <p style="font-weight: 400;">
+            <%= @step %> minut
+        </p>
+    </div>
+<% end %>

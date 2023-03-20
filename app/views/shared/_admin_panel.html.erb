@@ -1,0 +1,71 @@
+<div class="admin-panel">
+    <%= form_with scope: :active_week, url: calendar_path, method: :patch, local: true do |f| %>
+
+            <%= f.hidden_field :id %>
+        <div class="admin-panel-form">
+            <label style="font-weight: 600;">Aktywne dni:</label>
+            <div class="check-box">
+                <%= f.check_box :monday %>
+                <%= f.label :email, "Poniedziałek" %>
+            </div>
+
+            <div class="check-box">
+                <%= f.check_box :tuesday %>
+                <%= f.label :email, "Wtorek" %>
+            </div>
+
+            <div class="check-box">
+                <%= f.check_box :wednesday %>
+                <%= f.label :email, "Środa" %>
+            </div>
+
+            <div class="check-box">
+                <%= f.check_box :thursday %>
+                <%= f.label :email, "Czwartek" %>
+            </div>
+
+            <div class="check-box">
+                <%= f.check_box :friday %>
+                <%= f.label :email, "Piątek" %>
+            </div>
+
+            <div class="check-box">
+                <%= f.check_box :saturday %>
+                <%= f.label :email, "Sobota" %>
+            </div>
+
+            <div class="check-box">
+                <%= f.check_box :sunday %>
+                <%= f.label :email, "Niedziela" %>
+            </div>
+
+            <div>
+                <%= f.label :step, "Długość rezerwacji w minutach", style: "font-weight: 600;" %>
+                <%= f.select :step, [30, 45, 60] %>
+            </div>
+
+            <div>
+                <%= f.label :start_time, "Od: (w minutach)", style: "font-weight: 600;" %>
+                <%= f.text_field :start_time %>
+            </div>
+
+            <div>
+                <%= f.label :end_time, "Do: (w minutach)", style: "font-weight: 600;" %>
+                <%= f.text_field :end_time %>
+            </div>
+
+
+            <%= f.submit "Zapisz", style: "margin-top: 10px;" %>
+        </div>
+    <% end %>
+</div>
+
+
+<!--
+         f.label :email, "Email" %>
+        f.text_field :email %>
+        
+        f.hidden_field :date, value: params[:date] %>
+        f.hidden_field :start_time, value: params[:event_start_time] %>
+        f.hidden_field :end_time, value: ( params[:event_start_time].to_i + params[:step].to_i ) %>
+-->

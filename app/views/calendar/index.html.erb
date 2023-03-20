@@ -1,0 +1,159 @@
+<% calendar_start_date = Date.today %>
+<% calendar_date_range = (calendar_start_date.beginning_of_week..calendar_start_date.end_of_week).to_a %>
+
+<% number_of_events = (@active_week.end_time - @active_week.start_time)/@active_week.step %>
+
+
+<table>
+    <thead>
+        <tr>
+            <th>Pon. <div class="cal-date"><%= calendar_date_range[0] %></div></th>
+            <th>Wt. <div class="cal-date"><%= calendar_date_range[1] %></div></th>
+            <th>Śr. <div class="cal-date"><%= calendar_date_range[2] %></div></th>
+            <th>Czw. <div class="cal-date"><%= calendar_date_range[3] %></div></th>
+            <th>Pt. <div class="cal-date"><%= calendar_date_range[4] %></div></th>
+            <th>Pb. <div class="cal-date"><%= calendar_date_range[5] %></div></th>
+            <th>Nd. <div class="cal-date"><%= calendar_date_range[6] %></div></th>
+        </tr>
+    </thead>
+
+
+    <tbody>
+        <td>
+            <% if @active_week.monday %>
+            <% monday_reservations = @reservations_this_week.select { |r| r.date.monday? } %>
+                <% for i in 1..number_of_events do %>
+                    <% tile_start_time = (@active_week.start_time + (i-1) * @active_week.step) %>
+                    <% if monday_reservations.any? { |r| r.start_time == tile_start_time } %>
+                        <%= render "shared/gray_tile" %>
+                    <% else %>
+                        <% @date = calendar_start_date.beginning_of_week %>
+                        <% @event_start_time = tile_start_time %>
+                        <% @step =  @active_week.step %>
+                        <%= render "shared/green_tile" %>
+                    <% end %>
+                <% end %>
+            <% else %>
+                <%= render "shared/red_tile" %>
+            <% end %>
+        </td>
+
+        <td>
+            <% if @active_week.tuesday %>
+            <% tuesday_reservations = @reservations_this_week.select { |r| r.date.tuesday? } %>
+                <% for i in 1..number_of_events do %>
+                    <% tile_start_time = (@active_week.start_time + (i-1) * @active_week.step) %>
+                    <% if tuesday_reservations.any? { |r| r.start_time == tile_start_time } %>
+                        <%= render "shared/gray_tile" %>
+                    <% else %>
+                        <% @date = calendar_start_date.beginning_of_week+1 %>
+                        <% @event_start_time = tile_start_time %>
+                        <% @step =  @active_week.step %>
+                        <%= render "shared/green_tile" %>
+                    <% end %>
+                <% end %>
+            <% else %>
+                <%= render "shared/red_tile" %>
+            <% end %>
+        </td>
+
+        <td>
+            <% if @active_week.wednesday %>
+            <% wednesday_reservations = @reservations_this_week.select { |r| r.date.wednesday? } %>
+                <% for i in 1..number_of_events do %>
+                    <% tile_start_time = (@active_week.start_time + (i-1) * @active_week.step) %>
+                    <% if wednesday_reservations.any? { |r| r.start_time == tile_start_time } %>
+                        <%= render "shared/gray_tile" %>
+                    <% else %>
+                        <% @date = calendar_start_date.beginning_of_week+2 %>
+                        <% @event_start_time = tile_start_time %>
+                        <% @step =  @active_week.step %>
+                        <%= render "shared/green_tile" %>
+                    <% end %>
+                <% end %>
+            <% else %>
+                <%= render "shared/red_tile" %>
+            <% end %>
+        </td>
+
+        <td>
+            <% if @active_week.thursday %>
+            <% thursday_reservations = @reservations_this_week.select { |r| r.date.thursday? } %>
+                <% for i in 1..number_of_events do %>
+                    <% tile_start_time = (@active_week.start_time + (i-1) * @active_week.step) %>
+                    <% if thursday_reservations.any? { |r| r.start_time == tile_start_time } %>
+                        <%= render "shared/gray_tile" %>
+                    <% else %>
+                        <% @date = calendar_start_date.beginning_of_week+3 %>
+                        <% @event_start_time = tile_start_time %>
+                        <% @step =  @active_week.step %>
+                        <%= render "shared/green_tile" %>
+                    <% end %>
+                <% end %>
+            <% else %>
+                <%= render "shared/red_tile" %>
+            <% end %>
+        </td>
+
+        <td>
+            <% if @active_week.friday %>
+            <% friday_reservations = @reservations_this_week.select { |r| r.date.friday? } %>
+                <% for i in 1..number_of_events do %>
+                    <% tile_start_time = (@active_week.start_time + (i-1) * @active_week.step) %>
+                    <% if friday_reservations.any? { |r| r.start_time == tile_start_time } %>
+                        <%= render "shared/gray_tile" %>
+                    <% else %>
+                        <% @date = calendar_start_date.beginning_of_week+4 %>
+                        <% @event_start_time = tile_start_time %>
+                        <% @step =  @active_week.step %>
+                        <%= render "shared/green_tile" %>
+                    <% end %>
+                <% end %>
+            <% else %>
+                <%= render "shared/red_tile" %>
+            <% end %>
+        </td>
+
+        <td>
+            <% if @active_week.saturday %>
+            <% saturday_reservations = @reservations_this_week.select { |r| r.date.saturday? } %>
+                <% for i in 1..number_of_events do %>
+                    <% tile_start_time = (@active_week.start_time + (i-1) * @active_week.step) %>
+                    <% if saturday_reservations.any? { |r| r.start_time == tile_start_time } %>
+                        <%= render "shared/gray_tile" %>
+                    <% else %>
+                        <% @date = calendar_start_date.beginning_of_week+5 %>
+                        <% @event_start_time = tile_start_time %>
+                        <% @step =  @active_week.step %>
+                        <%= render "shared/green_tile" %>
+                    <% end %>
+                <% end %>
+            <% else %>
+                <%= render "shared/red_tile" %>
+            <% end %>
+        </td>
+
+        <td>
+            <% if @active_week.sunday %>
+            <% sunday_reservations = @reservations_this_week.select { |r| r.date.sunday? } %>
+                <% for i in 1..number_of_events do %>
+                    <% tile_start_time = (@active_week.start_time + (i-1) * @active_week.step) %>
+                    <% if sunday_reservations.any? { |r| r.start_time == tile_start_time } %>
+                        <%= render "shared/gray_tile" %>
+                    <% else %>
+                        <% @date = calendar_start_date.beginning_of_week+6 %>
+                        <% @event_start_time = tile_start_time %>
+                        <% @step =  @active_week.step %>
+                        <%= render "shared/green_tile" %>
+                    <% end %>
+                <% end %>
+            <% else %>
+                <%= render "shared/red_tile" %>
+            <% end %>
+        </td>
+    </tbody>
+</table>
+
+<% if current_user_admin? %>
+    <%= render "shared/admin_panel" %>
+<% end %>

@@ -1,0 +1,22 @@
+<%= turbo_frame_tag "modal" do %>
+
+    <div class="modal-box">
+
+        <%= form_with scope: :reservation, url:reservations_path, local: true do |f| %>
+            <div class="form-style">
+                <%= f.label :phone_number, "Nr. telefonu" %>
+                <%= f.text_field :phone_number %>
+
+                <%= f.label :email, "Email" %>
+                <%= f.text_field :email %>
+                
+                <%= f.hidden_field :date, value: params[:date] %>
+                <%= f.hidden_field :start_time, value: params[:event_start_time] %>
+                <%= f.hidden_field :end_time, value: ( params[:event_start_time].to_i + params[:step].to_i ) %>
+
+                <%= f.submit "Zapisz", style: "margin-top: 10px;" %>
+            </div>
+        <% end %>
+    </div>
+<% end %>
+
